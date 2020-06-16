@@ -29,8 +29,16 @@ $(document).ready(function () {
       $("#humidity").text(hum + " %");
       var wind = response.list[0].wind.speed;
       $("#wind-speed").text(wind + " MPH");
+
+      $(".card-title").text(timeBlock);
+      var tempCard = Math.floor(
+        (response.list[0].main.temp - 273.15) * 1.8 + 32
+      );
+      $(".card-temp").text(tempCard + " F");
+      var humCard = response.list[1].main.humidity;
+      $(".card-hum").text(humCard + " %");
       //needs to be fixed
-      var uvIndex = response.list[0].wind.speed;
+      var uvIndex = response.list[1].wind.speed;
       $("#uv-index").text(uvIndex);
     });
     renderButtons();
@@ -55,9 +63,17 @@ $(document).ready(function () {
       $("#humidity").text(hum + " %");
       var wind = response.list[0].wind.speed;
       $("#wind-speed").text(wind + " MPH");
+      $(".card-title").text(timeBlock);
+      var tempCard = Math.floor(
+        (response.list[0].main.temp - 273.15) * 1.8 + 32
+      );
+      $(".card-temp").text(tempCard + " F");
+      var humCard = response.list[1].main.humidity;
+      $(".card-hum").text(humCard + " %");
       //needs to be fixed
-      var uvIndex = response.list[0].wind.speed;
+      var uvIndex = response.list[1].wind.speed;
       $("#uv-index").text(uvIndex);
+   
     });
   }
   function renderButtons() {
