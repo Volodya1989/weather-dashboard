@@ -83,7 +83,7 @@ $(document).ready(function () {
         console.log(tempCard);
         var timeCard = new Date(response.list[i].dt_txt).toLocaleDateString();
         var humCard = response.list[i].main.humidity;
-        var card = $(`<div>`);
+        // var card = $(`<div class='col-sm-2 weather-cards'></div>`);
         var carEl1 = $(` <div
     class="card text-white bg-primary mb-3"
     style="max-width: 10rem;"
@@ -94,8 +94,8 @@ $(document).ready(function () {
                     <p>Hum: <span class="card-hum">${humCard} %</span></p>
     </div>
   </div> `);
-        card.html(carEl1);
-        cardDays.append(card);
+        // card.html();
+        cardDays.append(carEl1);
       }
     }
 
