@@ -16,6 +16,10 @@ $(document).ready(function () {
       url: queryURL,
       method: "GET",
     }).then(function (response) {
+      var timeBlock = moment().format("L");
+      console.log(timeBlock);
+      var cityName = response.city.name;
+      $("#city").text(`${cityName} (${timeBlock}) `);
       var temp = Math.floor((response.list[0].main.temp - 273.15) * 1.8 + 32);
       $("#temperature").text(temp + " F");
       var hum = response.list[0].main.humidity;
@@ -29,7 +33,7 @@ $(document).ready(function () {
     renderButtons();
   }
 
-  function cityInfiOnButtonPush() {
+  function cityInfoOnButtonPush() {
     var city = $(this).attr("data-city");
     var queryURL = `${dailyApi}&q=${city}`;
     console.log(queryURL);
@@ -38,6 +42,10 @@ $(document).ready(function () {
       url: queryURL,
       method: "GET",
     }).then(function (response) {
+      var timeBlock = moment().format("L");
+      console.log(timeBlock);
+      var cityName = response.city.name;
+      $("#city").text(`${cityName} (${timeBlock}) `);
       var temp = Math.floor((response.list[0].main.temp - 273.15) * 1.8 + 32);
       $("#temperature").text(temp + " F");
       var hum = response.list[0].main.humidity;
@@ -49,13 +57,6 @@ $(document).ready(function () {
       $("#uv-index").text(uvIndex + " index");
     });
   }
-
-  searchBth.on("click", function () {
-    displayCityInfo();
-  });
-
-  $(document).on("click", ".cities", cityInfiOnButtonPush);
-
   function renderButtons() {
     // Deletes the cities prior to adding new cities
     // (this is necessary otherwise you will have repeat buttons)
@@ -70,4 +71,24 @@ $(document).ready(function () {
       $("#cities-list").append(a);
     }
   }
+
+  searchBth.on("click", function () {
+    displayCityInfo();
+  });
+
+  $(document).on("click", ".cities", cityInfoOnButtonPush);
 });
+
+// var storageData = localStorage.getItem('data');
+
+// if (storageData) {
+//   storageData = JSON.parse(storageData);
+// } else {
+//   storageData = {};
+// }
+
+// var cities = Object.keys(storageData);
+
+// for (var i = 0; i < cities.length; i++) {
+//   var city = cities[i];
+// }
