@@ -72,7 +72,7 @@ $(document).ready(function () {
       var a = $(
         `<li class='list-group-item cities' data-city='${cities[i]}'>${cities[i]}</li>`
       );
-      $("#cities-list").append(a);
+      $("#cities-list").prepend(a);
     }
   }
 
