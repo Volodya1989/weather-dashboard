@@ -1,0 +1,20 @@
+.navbar{
+    color: white;
+}
+#main-weather-info{
+    margin: 60px 0;
+}
+#seach-container{
+    border: black;
+}
+li{
+    list-style: none;
+}
+.hide-list{
+    display: none;
+    margin-top: 20px;
+
+}
+#forecast-id{
+    display: none;
+}

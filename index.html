@@ -10,41 +10,57 @@
       integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="./Develop/style.css" />
   </head>
   <body>
     <header>
-        <div class="container">
-        <h1>Weather Dashboard</h1>
-      </div>
+      <nav
+        class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary"
+      >
+        <div class="container justify-center">
+          <!-- <div class="row col-sm-12"> -->
+          <h1 id="header">Weather Dashboard</h1>
+          <!-- </div> -->
+        </div>
+      </nav>
     </header>
 
     <main>
       <div class="container">
-        <div class="row">
+        <div id="main-weather-info" class="row">
           <div class="col-sm-5">
-            <div class="search-box">
-              <label for="search">Search for a City:</label>
-              <input type="text" id="search-field" />
-              <button id="search-button" class="btn btn-primary">Search</button>
+            <div id="seach-container" class="search-box">
+              <div class="row">
+                <label for="search">Search for a City:</label>
+              </div>
+              <div class="row">
+                <input type="text" id="search-field" />
+                <button id="search-button" class="btn btn-primary ">
+                  <i class="icon-search"></i>
+                </button>
+              </div>
             </div>
-
-            <ul id="cities-list" class="cities">
-              <!-- <li class="city">Atlanta</li> -->
-            </ul>
+            <div class="row">
+            <div class="card col-sm-8 hide-list" style="width: 18rem;">
+              <ul id="cities-list" class="list-group list-group-flush cities">
+                <!-- <li class="city">Atlanta</li> -->
+              </ul>
+            </div>
+            </div>
           </div>
 
-          <div class="col-sm-7">
-            <div class="forecast-info">
-                <h4 class="title"></h4>
-                <h3  class="details" id="city"> <span id="date"></span></h3>
-                <p  class="details">Temperature: <span id="temperature"></span></p>
-                <p  class="details">Humidity: <span id="humidity"></span></p>
-                <p  class="details">Wind Speed: <span id="wind-speed"></span></p>
-                <p  class="details">UV Index: <span id="uv-index"></span></p>
+          <div class="col-sm-7" >
+            <div id="forecast-id" class="forecast-info">
+              <h4 class="title"></h4>
+              <h3 class="details" id="city"><span id="date"></span></h3>
+              <p class="details">Temperature: <span id="temperature"></span></p>
+              <p class="details">Humidity: <span id="humidity"></span></p>
+              <p class="details">Wind Speed: <span id="wind-speed"></span></p>
+              <p class="details">UV Index: <span id="uv-index"></span></p>
             </div>
 
             <div class="forecast-days">
-                <ul></ul>
+              <ul></ul>
             </div>
           </div>
         </div>
