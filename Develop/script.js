@@ -5,77 +5,62 @@ $(document).ready(function () {
   var searchBth = $("#search-button");
   var cities = [];
 
+  function showPageConten() {
+    $(".hide-list").show();
+    $("#forecast-id").show();
+    $("#forecast-cards").show();
+    $("#title-day-forecast").show();
+  }
+
+  function ajaxInfo(city) {
+    cities.push(city);
+    
+    var queryURL = `${dailyApi}&q=${city}`;
+    console.log(queryURL);
+
+    $.ajax({
+      url: queryURL,
+      method: "GET",
+    }).then(function (response) {
+      var timeBlock = moment().format("L");
+      console.log(timeBlock);
+      var cityName = response.city.name;
+      $("#city").text(`${cityName} (${timeBlock}) `);
+      var temp = Math.floor((response.list[0].main.temp - 273.15) * 1.8 + 32);
+      $("#temperature").text(temp + " F");
+      var hum = response.list[0].main.humidity;
+      $("#humidity").text(hum + " %");
+      var wind = response.list[0].wind.speed;
+      $("#wind-speed").text(wind + " MPH");
+
+      $(".card-title").text(timeBlock);
+      var tempCard = Math.floor(
+        (response.list[0].main.temp - 273.15) * 1.8 + 32
+      );
+      $(".card-temp").text(tempCard + " F");
+      var humCard = response.list[1].main.humidity;
+      $(".card-hum").text(humCard + " %");
+      //needs to be fixed
+      var uvIndex = response.list[1].wind.speed;
+      $("#uv-index").text(uvIndex);
+    });
+  }
+
   function displayCityInfo() {
     var city = $("#search-field").val();
     if (city == "") {
       return;
     }
-    cities.push(city);
-    console.log(cities);
-    var queryURL = `${dailyApi}&q=${city}`;
-    console.log(queryURL);
-
-    $.ajax({
-      url: queryURL,
-      method: "GET",
-    }).then(function (response) {
-      var timeBlock = moment().format("L");
-      console.log(timeBlock);
-      var cityName = response.city.name;
-      $("#city").text(`${cityName} (${timeBlock}) `);
-      var temp = Math.floor((response.list[0].main.temp - 273.15) * 1.8 + 32);
-      $("#temperature").text(temp + " F");
-      var hum = response.list[0].main.humidity;
-      $("#humidity").text(hum + " %");
-      var wind = response.list[0].wind.speed;
-      $("#wind-speed").text(wind + " MPH");
-
-      $(".card-title").text(timeBlock);
-      var tempCard = Math.floor(
-        (response.list[0].main.temp - 273.15) * 1.8 + 32
-      );
-      $(".card-temp").text(tempCard + " F");
-      var humCard = response.list[1].main.humidity;
-      $(".card-hum").text(humCard + " %");
-      //needs to be fixed
-      var uvIndex = response.list[1].wind.speed;
-      $("#uv-index").text(uvIndex);
-    });
+    showPageConten();
+    ajaxInfo(city);
     renderButtons();
   }
 
   function cityInfoOnButtonPush() {
     var city = $(this).attr("data-city");
-    var queryURL = `${dailyApi}&q=${city}`;
-    console.log(queryURL);
-
-    $.ajax({
-      url: queryURL,
-      method: "GET",
-    }).then(function (response) {
-      var timeBlock = moment().format("L");
-      console.log(timeBlock);
-      var cityName = response.city.name;
-      $("#city").text(`${cityName} (${timeBlock}) `);
-      var temp = Math.floor((response.list[0].main.temp - 273.15) * 1.8 + 32);
-      $("#temperature").text(temp + " F");
-      var hum = response.list[0].main.humidity;
-      $("#humidity").text(hum + " %");
-      var wind = response.list[0].wind.speed;
-      $("#wind-speed").text(wind + " MPH");
-      $(".card-title").text(timeBlock);
-      var tempCard = Math.floor(
-        (response.list[0].main.temp - 273.15) * 1.8 + 32
-      );
-      $(".card-temp").text(tempCard + " F");
-      var humCard = response.list[1].main.humidity;
-      $(".card-hum").text(humCard + " %");
-      //needs to be fixed
-      var uvIndex = response.list[1].wind.speed;
-      $("#uv-index").text(uvIndex);
-   
-    });
+    ajaxInfo(city);
   }
+  
   function renderButtons() {
     // Deletes the cities prior to adding new cities
     // (this is necessary otherwise you will have repeat buttons)
@@ -92,8 +77,6 @@ $(document).ready(function () {
   }
 
   searchBth.on("click", function () {
-    $(".hide-list").show();
-    $("#forecast-id").show();
     displayCityInfo();
   });
 
