@@ -26,7 +26,7 @@
     </header>
 
     <main>
-      <div class="container">
+      <div id="main-container" class="container">
         <div id="main-weather-info" class="row">
           <div class="col-sm-5">
             <div id="seach-container" class="search-box">
@@ -35,22 +35,22 @@
               </div>
               <div class="row">
                 <input type="text" id="search-field" />
-                <button id="search-button" class="btn btn-primary ">
+                <button id="search-button" class="btn btn-primary">
                   <i class="icon-search"></i>
                 </button>
               </div>
             </div>
             <div class="row">
-            <div class="card col-sm-8 hide-list" style="width: 18rem;">
-              <ul id="cities-list" class="list-group list-group-flush cities">
-                <!-- <li class="city">Atlanta</li> -->
-              </ul>
-            </div>
+              <div class="card col-sm-8 hide-list" style="width: 18rem;">
+                <ul id="cities-list" class="list-group list-group-flush cities">
+                  <!-- <li class="city">Atlanta</li> -->
+                </ul>
+              </div>
             </div>
           </div>
 
-          <div class="col-sm-7" >
-            <div id="forecast-id" class="forecast-info">
+          <div class="col-sm-7">
+            <div id="forecast-id" class="card forecast-info">
               <h4 class="title"></h4>
               <h3 class="details" id="city"><span id="date"></span></h3>
               <p class="details">Temperature: <span id="temperature"></span></p>
@@ -58,9 +58,73 @@
               <p class="details">Wind Speed: <span id="wind-speed"></span></p>
               <p class="details">UV Index: <span id="uv-index"></span></p>
             </div>
-
-            <div class="forecast-days">
-              <ul></ul>
+            <div><h3>5-Day Forecast:</h3></div>
+            <div id="forecast-cards" class="row">
+              <div class="forecast-days">
+                <div
+                  class="card text-white bg-primary mb-3"
+                  style="max-width: 10rem;"
+                >
+                  <div class="card-body forecast-cards">
+                    <h5 class="card-title">Primary card title</h5>
+                    <p class="card-text">
+                      Some quick example text to build on the.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="forecast-days">
+                <div
+                  class="card text-white bg-primary mb-3"
+                  style="max-width: 10rem;"
+                >
+                  <div class="card-body forecast-cards">
+                    <h5 class="card-title">Primary card title</h5>
+                    <p class="card-text">
+                      Some quick example text to build on the.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="forecast-days">
+                <div
+                  class="card text-white bg-primary mb-3"
+                  style="max-width: 10rem;"
+                >
+                  <div class="card-body forecast-cards">
+                    <h5 class="card-title">Primary card title</h5>
+                    <p class="card-text">
+                      Some quick example text to build on the.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="forecast-days">
+                <div
+                  class="card text-white bg-primary mb-3"
+                  style="max-width: 10rem;"
+                >
+                  <div class="card-body forecast-cards">
+                    <h5 class="card-title">Primary card title</h5>
+                    <p class="card-text">
+                      Some quick example text to build on the.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="forecast-days">
+                <div
+                  class="card text-white bg-primary mb-3"
+                  style="max-width: 10rem;"
+                >
+                  <div class="card-body forecast-cards">
+                    <h5 class="card-title">Primary card title</h5>
+                    <p class="card-text">
+                      Some quick example text to build on the.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
