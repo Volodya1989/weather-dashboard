@@ -7,6 +7,9 @@ $(document).ready(function () {
 
   function displayCityInfo() {
     var city = $("#search-field").val();
+    if (city == "") {
+      return;
+    }
     cities.push(city);
     console.log(cities);
     var queryURL = `${dailyApi}&q=${city}`;
@@ -28,7 +31,7 @@ $(document).ready(function () {
       $("#wind-speed").text(wind + " MPH");
       //needs to be fixed
       var uvIndex = response.list[0].wind.speed;
-      $("#uv-index").text(uvIndex + " index");
+      $("#uv-index").text(uvIndex);
     });
     renderButtons();
   }
@@ -54,7 +57,7 @@ $(document).ready(function () {
       $("#wind-speed").text(wind + " MPH");
       //needs to be fixed
       var uvIndex = response.list[0].wind.speed;
-      $("#uv-index").text(uvIndex + " index");
+      $("#uv-index").text(uvIndex);
     });
   }
   function renderButtons() {
@@ -66,13 +69,15 @@ $(document).ready(function () {
     for (var i = 0; i < cities.length; i++) {
       // Then dynamicaly generates buttons for each city in the array
       var a = $(
-        `<li><button class='cities' data-city='${cities[i]}'>${cities[i]}</button></li>`
+        `<li class='list-group-item cities' data-city='${cities[i]}'>${cities[i]}</li>`
       );
       $("#cities-list").append(a);
     }
   }
 
   searchBth.on("click", function () {
+    $(".hide-list").show();
+    $("#forecast-id").show();
     displayCityInfo();
   });
 
