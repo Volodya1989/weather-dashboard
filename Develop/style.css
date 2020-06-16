@@ -27,7 +27,13 @@ li{
     display: none;
     padding: 30px;
 }
+#forecast-cards{
+    display: none;
+}
 .forecast-days{
     display: inline-block;
-    margin-left: 15px;
+    margin-left: 5px;
+}
+#title-day-forecast{
+display: none;
 }
