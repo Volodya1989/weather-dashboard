@@ -29,9 +29,9 @@ $(document).ready(function () {
     if (data) {
       data = JSON.parse(data);
     } 
-    // else {
-    //   data = {};
-    // }
+    else {
+      data = {};
+    }
 
     return data;
   }
