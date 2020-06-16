@@ -22,21 +22,19 @@ $(document).ready(function () {
     renderWeatherInfo(cityByDefault);
   }
 
-
-  function getCachedData () {
+  function getCachedData() {
     var data = localStorage.getItem("data");
 
     if (data) {
       data = JSON.parse(data);
-    } 
-    else {
+    } else {
       data = {};
     }
 
     return data;
   }
 
-  function saveDataInCache (data) {
+  function saveDataInCache(data) {
     localStorage.setItem("data", JSON.stringify(data));
   }
 
@@ -56,7 +54,7 @@ $(document).ready(function () {
 
       return;
     }
-  
+
     var queryURL = `${dailyApi}&q=${city}`;
     console.log(queryURL);
 
@@ -72,28 +70,60 @@ $(document).ready(function () {
     });
   }
 
-  function renderWeatherInfo (response) {
-      var timeBlock = moment().format("L");
-      console.log(timeBlock);
-      var cityName = response.city.name;
-      $("#city").text(`${cityName} (${timeBlock}) `);
-      var temp = Math.floor((response.list[0].main.temp - 273.15) * 1.8 + 32);
-      $("#temperature").text(temp + " F");
-      var hum = response.list[0].main.humidity;
-      $("#humidity").text(hum + " %");
-      var wind = response.list[0].wind.speed;
-      $("#wind-speed").text(wind + " MPH");
+  function renderCards(response){
+    var cardDays = $(`.forecast-days`);
+    $(".forecast-days").empty();
+    for (var i = 0; i < response.list.length; i++) {
+      // console.log(response.list[i]);
 
-      $(".card-title").text(timeBlock);
-      var tempCard = Math.floor(
-        (response.list[0].main.temp - 273.15) * 1.8 + 32
-      );
-      $(".card-temp").text(tempCard + " F");
-      var humCard = response.list[1].main.humidity;
-      $(".card-hum").text(humCard + " %");
-      //needs to be fixed
-      var uvIndex = response.list[1].wind.speed;
-      $("#uv-index").text(uvIndex);
+      if (response.list[i].dt_txt.indexOf("15:00:00") !== -1) {
+        let tempCard = Math.floor(
+          (response.list[i].main.temp - 273.15) * 1.8 + 32
+        );
+        console.log(tempCard);
+        var timeCard = new Date(response.list[i].dt_txt).toLocaleDateString();
+        var humCard = response.list[i].main.humidity;
+        var card = $(`<div>`);
+        var carEl1 = $(` <div
+    class="card text-white bg-primary mb-3"
+    style="max-width: 10rem;"
+  >
+    <div class="card-body forecast-cards">
+      <h5 class="card-title">${timeCard}</h5>
+      <p>Temp: <span class="card-temp">${tempCard} F</span></p>
+                    <p>Hum: <span class="card-hum">${humCard} %</span></p>
+    </div>
+  </div> `);
+        card.html(carEl1);
+        cardDays.append(card);
+      }
+    }
+
+  }
+
+  function renderWeatherInfo(response) {
+    
+    var timeBlock = moment().format("L");
+    console.log(timeBlock);
+    var cityName = response.city.name;
+    $("#city").text(`${cityName} (${timeBlock}) `);
+    var temp = Math.floor((response.list[0].main.temp - 273.15) * 1.8 + 32);
+    $("#temperature").text(temp + " F");
+    var hum = response.list[0].main.humidity;
+    $("#humidity").text(hum + " %");
+    var wind = response.list[0].wind.speed;
+    $("#wind-speed").text(wind + " MPH");
+
+    $(".card-title").text(timeBlock);
+    var tempCard = Math.floor((response.list[0].main.temp - 273.15) * 1.8 + 32);
+    $(".card-temp").text(tempCard + " F");
+    var humCard = response.list[1].main.humidity;
+    $(".card-hum").text(humCard + " %");
+    //needs to be fixed
+    var uvIndex = response.list[1].wind.speed;
+    $("#uv-index").text(uvIndex);
+    renderCards(response)
+   
   }
 
   function displayCityInfo() {
@@ -113,7 +143,7 @@ $(document).ready(function () {
 
     renderWeatherInfo(cityData);
   }
-  
+
   function renderButtons() {
     // Deletes the cities prior to adding new cities
     // (this is necessary otherwise you will have repeat buttons)
@@ -136,4 +166,3 @@ $(document).ready(function () {
 
   $(document).on("click", ".cities", cityInfoOnButtonPush);
 });
-
