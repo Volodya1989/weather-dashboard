@@ -1,8 +1,16 @@
+.container{
+    margin: 0 0 ;
+}
 .navbar{
     color: white;
 }
+.container #main-container{
+    margin-left: 0;
+    margin-right: 0;
+}
 #main-weather-info{
     margin: 60px 0;
+
 }
 #seach-container{
     border: black;
@@ -17,4 +25,5 @@ li{
 }
 #forecast-id{
     display: none;
+    padding: 30px;
 }
