@@ -27,3 +27,7 @@ li{
     display: none;
     padding: 30px;
 }
+.forecast-days{
+    display: inline-block;
+    margin-left: 15px;
+}
