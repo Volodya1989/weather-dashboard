@@ -4,6 +4,41 @@ $(document).ready(function () {
 
   var searchBth = $("#search-button");
   var cities = [];
+  var cachedData = getCachedData();
+  var cachedCityNames = Object.keys(cachedData);
+
+  for (var i = 0; i < cachedCityNames.length; i++) {
+    var cityName = cachedCityNames[i];
+    var cityData = cachedData[cityName];
+
+    cities.push(cityData);
+  }
+
+  if (cities.length) {
+    var cityByDefault = cities[cities.length - 1];
+
+    showPageConten();
+    renderButtons();
+    renderWeatherInfo(cityByDefault);
+  }
+
+
+  function getCachedData () {
+    var data = localStorage.getItem("data");
+
+    if (data) {
+      data = JSON.parse(data);
+    } 
+    // else {
+    //   data = {};
+    // }
+
+    return data;
+  }
+
+  function saveDataInCache (data) {
+    localStorage.setItem("data", JSON.stringify(data));
+  }
 
   function showPageConten() {
     $(".hide-list").show();
@@ -13,8 +48,15 @@ $(document).ready(function () {
   }
 
   function ajaxInfo(city) {
-    cities.push(city);
-    
+    var cachedData = getCachedData();
+    var cityExists = cachedData[city];
+
+    if (cityExists) {
+      renderWeatherInfo(cachedData[city]);
+
+      return;
+    }
+  
     var queryURL = `${dailyApi}&q=${city}`;
     console.log(queryURL);
 
@@ -22,6 +64,15 @@ $(document).ready(function () {
       url: queryURL,
       method: "GET",
     }).then(function (response) {
+      cachedData[city] = response;
+      saveDataInCache(cachedData);
+      cities.push(response);
+      renderButtons();
+      renderWeatherInfo(response);
+    });
+  }
+
+  function renderWeatherInfo (response) {
       var timeBlock = moment().format("L");
       console.log(timeBlock);
       var cityName = response.city.name;
@@ -43,7 +94,6 @@ $(document).ready(function () {
       //needs to be fixed
       var uvIndex = response.list[1].wind.speed;
       $("#uv-index").text(uvIndex);
-    });
   }
 
   function displayCityInfo() {
@@ -53,12 +103,15 @@ $(document).ready(function () {
     }
     showPageConten();
     ajaxInfo(city);
-    renderButtons();
   }
 
   function cityInfoOnButtonPush() {
     var city = $(this).attr("data-city");
-    ajaxInfo(city);
+    var cityData = cities.find(function (cityData) {
+      return cityData.city.name === city;
+    });
+
+    renderWeatherInfo(cityData);
   }
   
   function renderButtons() {
@@ -68,9 +121,10 @@ $(document).ready(function () {
 
     // Loops through the array of cities
     for (var i = 0; i < cities.length; i++) {
+      var cityData = cities[i];
       // Then dynamicaly generates buttons for each city in the array
       var a = $(
-        `<li class='list-group-item cities' data-city='${cities[i]}'>${cities[i]}</li>`
+        `<li class='list-group-item cities' data-city='${cityData.city.name}'>${cityData.city.name}</li>`
       );
       $("#cities-list").prepend(a);
     }
@@ -83,16 +137,3 @@ $(document).ready(function () {
   $(document).on("click", ".cities", cityInfoOnButtonPush);
 });
 
-// var storageData = localStorage.getItem('data');
-
-// if (storageData) {
-//   storageData = JSON.parse(storageData);
-// } else {
-//   storageData = {};
-// }
-
-// var cities = Object.keys(storageData);
-
-// for (var i = 0; i < cities.length; i++) {
-//   var city = cities[i];
-// }
