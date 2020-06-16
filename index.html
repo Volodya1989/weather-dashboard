@@ -19,7 +19,7 @@
       >
         <div class="container justify-center">
           <!-- <div class="row col-sm-12"> -->
-          <h1 id="header" >Weather Dashboard</h1>
+          <h1 id="header">Weather Dashboard</h1>
           <!-- </div> -->
         </div>
       </nav>
@@ -36,7 +36,23 @@
               <div class="row">
                 <input type="text" id="search-field" />
                 <button id="search-button" class="btn btn-primary">
-                  <i class="icon-search"></i>
+                  <svg
+                    class="bi bi-search"
+                    width="1em"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"
+                    />
+                  </svg>
                 </button>
               </div>
             </div>
@@ -52,7 +68,9 @@
           <div class="col-sm-7">
             <div id="forecast-id" class="card forecast-info">
               <h4 class="title"></h4>
-              <h3 class="details" id="city"><span id="date"></span><span id=""></span></h3>
+              <h3 class="details" id="city">
+                <span id="date"></span><span id=""></span>
+              </h3>
               <p class="details">Temperature: <span id="temperature"></span></p>
               <p class="details">Humidity: <span id="humidity"></span></p>
               <p class="details">Wind Speed: <span id="wind-speed"></span></p>
@@ -67,9 +85,8 @@
                 >
                   <div class="card-body forecast-cards">
                     <h5 class="card-title"></h5>
-                    <p >Temp: <span class="card-temp"></span></p>
-                    <p >Hum: <span class="card-hum"></span></p>
-
+                    <p>Temp: <span class="card-temp"></span></p>
+                    <p>Hum: <span class="card-hum"></span></p>
                   </div>
                 </div>
               </div>
