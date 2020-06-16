@@ -70,7 +70,7 @@ $(document).ready(function () {
     });
   }
 
-  function renderCards(response){
+  function renderCards(response) {
     var cardDays = $(`.forecast-days`);
     $(".forecast-days").empty();
     for (var i = 0; i < response.list.length; i++) {
@@ -83,7 +83,7 @@ $(document).ready(function () {
         console.log(tempCard);
         var timeCard = new Date(response.list[i].dt_txt).toLocaleDateString();
         var humCard = response.list[i].main.humidity;
-        // var card = $(`<div class='col-sm-2 weather-cards'></div>`);
+    var icon = response.list[i].weather[0].icon;
         var carEl1 = $(` <div
     class="card text-white bg-primary mb-3"
     style="max-width: 10rem;"
@@ -91,6 +91,8 @@ $(document).ready(function () {
     <div class="card-body forecast-cards">
       <h5 class="card-title">${timeCard}</h5>
       <p>Temp: <span class="card-temp">${tempCard} F</span></p>
+      <div id="icon-card"><img id="wicon" src="http://openweathermap.org/img/w/${icon}.png" alt="Weather icon" /></div>
+
                     <p>Hum: <span class="card-hum">${humCard} %</span></p>
     </div>
   </div> `);
@@ -98,16 +100,22 @@ $(document).ready(function () {
         cardDays.append(carEl1);
       }
     }
-
   }
+  function displayIcon() {}
 
   function renderWeatherInfo(response) {
-    
+    // console.log(icon)
+
     var timeBlock = moment().format("L");
     console.log(timeBlock);
     var cityName = response.city.name;
     $("#city").text(`${cityName} (${timeBlock}) `);
     var temp = Math.floor((response.list[0].main.temp - 273.15) * 1.8 + 32);
+    $("#icon").empty();
+    var icon = response.list[0].weather[0].icon;
+    $("#icon").append(
+      `<img id="wicon" src="http://openweathermap.org/img/w/${icon}.png" alt="Weather icon" />`
+    );
     $("#temperature").text(temp + " F");
     var hum = response.list[0].main.humidity;
     $("#humidity").text(hum + " %");
@@ -122,8 +130,7 @@ $(document).ready(function () {
     //needs to be fixed
     var uvIndex = response.list[1].wind.speed;
     $("#uv-index").text(uvIndex);
-    renderCards(response)
-   
+    renderCards(response);
   }
 
   function displayCityInfo() {

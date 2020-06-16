@@ -48,6 +48,9 @@ li {
     max-width: 2140px;
   }
 }
+#header{
+    text-align: center;
+}
 
 .card {
   display: inline-block;
