@@ -67,6 +67,7 @@ $(document).ready(function () {
       cities.push(response);
       renderButtons();
       renderWeatherInfo(response);
+      
     });
   }
 
@@ -90,7 +91,7 @@ $(document).ready(function () {
   >
     <div class="card-body forecast-cards">
       <h5 class="card-title">${timeCard}</h5>
-      <p>Temp: <span class="card-temp">${tempCard} F</span></p>
+      <p>Temp: <span class="card-temp">${tempCard} F\xB0</span></p>
       <div id="icon-card"><img id="wicon" src="http://openweathermap.org/img/w/${icon}.png" alt="Weather icon" /></div>
 
                     <p>Hum: <span class="card-hum">${humCard} %</span></p>
@@ -101,7 +102,27 @@ $(document).ready(function () {
       }
     }
   }
-  function displayIcon() {}
+
+  // function uvIndex(response){
+  //   var lon = response.city.coord.lon;
+  //   var lat = response.city.coord.lat;
+  //   var uvIndexAPI = `http://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
+  //   $.ajax({
+  //     url: uvIndexAPI,
+  //     method: "GET",
+  //   }).then(function (uv) {
+  //     console.log(uv);
+  //     cachedData[city] = uv;
+  //     saveDataInCache(cachedData);
+  //     cities.push(uv);
+  //     var uvIndex = uv.list[1].wind.speed;
+  //     $("#uv-index").text(uvIndex);
+  //     renderButtons();
+  //     renderWeatherInfo(response);
+  //   });
+  
+  
+  // }
 
   function renderWeatherInfo(response) {
     // console.log(icon)
@@ -116,17 +137,17 @@ $(document).ready(function () {
     $("#icon").append(
       `<img id="wicon" src="http://openweathermap.org/img/w/${icon}.png" alt="Weather icon" />`
     );
-    $("#temperature").text(temp + " F");
+    $("#temperature").text(temp + " F\xB0");
     var hum = response.list[0].main.humidity;
     $("#humidity").text(hum + " %");
     var wind = response.list[0].wind.speed;
     $("#wind-speed").text(wind + " MPH");
 
-    $(".card-title").text(timeBlock);
-    var tempCard = Math.floor((response.list[0].main.temp - 273.15) * 1.8 + 32);
-    $(".card-temp").text(tempCard + " F");
-    var humCard = response.list[1].main.humidity;
-    $(".card-hum").text(humCard + " %");
+    // $(".card-title").text(timeBlock);
+    // var tempCard = Math.floor((response.list[0].main.temp - 273.15) * 1.8 + 32);
+    // $(".card-temp").text(tempCard + " F");
+    // var humCard = response.list[1].main.humidity;
+    // $(".card-hum").text(humCard + " %");
     //needs to be fixed
     var uvIndex = response.list[1].wind.speed;
     $("#uv-index").text(uvIndex);
