@@ -1,8 +1,9 @@
 # Weather Dashboard Application
 
-![badmath](https://img.shields.io/badge/Coding-Quiz%20App-red)
-
 ![badmath](https://img.shields.io/badge/Weather-Dashboard-yellow)
+
+![badmath](https://img.shields.io/badge/license-MIT-brightgreen)
+
 
 
 ## Table of Contents
@@ -35,7 +36,7 @@ This was a solo project comlepeted by Volodymyr Petrytsya as homework for the Ge
 
 ## URL
 
-[Link to Deployed Coding Quiz Application  ]( https://volodya1989.github.io/gt-hw-weather-dashboard/)
+[Link to Deployed Weather Dashboard Application  ]( https://volodya1989.github.io/gt-hw-weather-dashboard/)
 
 
 ## MIT_License 
