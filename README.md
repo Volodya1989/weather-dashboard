@@ -2,7 +2,7 @@
 
 ![badmath](https://img.shields.io/badge/Coding-Quiz%20App-red)
 
-![Contributor Covenant](https://img.shields.io/badge/license-MIT-brightgreen)
+![badmath](https://img.shields.io/badge/Weather-Dashboard-yellow)
 
 
 ## Table of Contents
@@ -20,9 +20,9 @@
 
 ## Usage
 
-This Coding Quiz Application was build by using best practeses of web development by using HTML, CSS, Bootstrap Library and JavaScript.
+This Weather Dashboard Applicationwas build by using best practices of web development by using HTML, CSS, Bootstrap Library and jQuery.
 
-This application is intended for people who want to check their knowledge on JavaScript and its rules.
+This application is intended for people who want to check weather in different cities on daily basis.
 
 
 The following animation demonstrates the application functionality:
@@ -35,7 +35,7 @@ This was a solo project comlepeted by Volodymyr Petrytsya as homework for the Ge
 
 ## URL
 
-[Link to Deployed Coding Quiz Application  ](https://volodya1989.github.io/gt-hw-coding-quiz-app/)
+[Link to Deployed Coding Quiz Application  ]( https://volodya1989.github.io/gt-hw-weather-dashboard/)
 
 
 ## MIT_License 

@@ -71,26 +71,24 @@ $(document).ready(function () {
       renderWeatherInfo(response);
 
       var lon = response.city.coord.lon;
-        var lat = response.city.coord.lat;
-        var uvIndexAPI = `https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
-        $.ajax({
-          url: uvIndexAPI,
-          method: "GET",
-        }).then(function (uv) {
-          console.log(uv);
-        
-          var uvIndex = uv.value;
-          $("#uv-index").text(uvIndex);
-          if(uvIndex<3){
-            $("#uv-index").attr("style", "background-color:green")
-          } else if(uvIndex<7){
-            $("#uv-index").attr("style", "background-color:orange")
-          } else{
-            $("#uv-index").attr("style", "background-color:red")
-          }
-       
-        });
-      
+      var lat = response.city.coord.lat;
+      var uvIndexAPI = `https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
+      $.ajax({
+        url: uvIndexAPI,
+        method: "GET",
+      }).then(function (uv) {
+        console.log(uv);
+
+        var uvIndex = uv.value;
+        $("#uv-index").text(uvIndex);
+        if (uvIndex < 3) {
+          $("#uv-index").attr("style", "background-color:green; padding: 5px;");
+        } else if (uvIndex < 7) {
+          $("#uv-index").attr("style", "background-color:orange; padding: 5px;");
+        } else {
+          $("#uv-index").attr("style", "background-color:red; padding: 5px;");
+        }
+      });
     });
   }
 
@@ -106,16 +104,15 @@ $(document).ready(function () {
         );
         var timeCard = new Date(response.list[i].dt_txt).toLocaleDateString();
         var humCard = response.list[i].main.humidity;
-    var icon = response.list[i].weather[0].icon;
+        var icon = response.list[i].weather[0].icon;
         var carEl1 = $(` <div
     class="card text-white bg-primary mb-3"
     style="max-width: 10rem;"
   >
     <div class="card-body forecast-cards">
       <h5 class="card-title">${timeCard}</h5>
-      <p>Temp: <span class="card-temp">${tempCard} F\xB0</span></p>
       <div id="icon-card"><img id="wicon" src="https://openweathermap.org/img/w/${icon}.png" alt="Weather icon" /></div>
-
+      <p>Temp: <span class="card-temp">${tempCard} F\xB0</span></p>
                     <p>Hum: <span class="card-hum">${humCard} %</span></p>
     </div>
   </div> `);
@@ -125,9 +122,7 @@ $(document).ready(function () {
     }
   }
 
-
   function renderWeatherInfo(response) {
-
     var timeBlock = moment().format("L");
     var cityName = response.city.name;
     $("#city").text(`${cityName} (${timeBlock}) `);
