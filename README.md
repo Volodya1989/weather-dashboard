@@ -26,7 +26,7 @@ This Weather Dashboard Applicationwas build by using best practices of web devel
 This application is intended for people who want to check weather in different cities on daily basis.
 
 
-The following animation demonstrates the application functionality:
+The following screenshot demonstrates the application functionality:
 
 ![Weather Dashboard demo](./Assets/06-server-side-apis-homework-demo.png)
 
