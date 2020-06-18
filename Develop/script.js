@@ -72,7 +72,7 @@ $(document).ready(function () {
 
       var lon = response.city.coord.lon;
         var lat = response.city.coord.lat;
-        var uvIndexAPI = `http://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
+        var uvIndexAPI = `https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
         $.ajax({
           url: uvIndexAPI,
           method: "GET",
