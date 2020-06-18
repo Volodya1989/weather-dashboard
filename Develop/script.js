@@ -62,11 +62,34 @@ $(document).ready(function () {
       url: queryURL,
       method: "GET",
     }).then(function (response) {
+      console.log(response);
+
       cachedData[city] = response;
       saveDataInCache(cachedData);
       cities.push(response);
       renderButtons();
       renderWeatherInfo(response);
+
+      var lon = response.city.coord.lon;
+        var lat = response.city.coord.lat;
+        var uvIndexAPI = `http://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
+        $.ajax({
+          url: uvIndexAPI,
+          method: "GET",
+        }).then(function (uv) {
+          console.log(uv);
+        
+          var uvIndex = uv.value;
+          $("#uv-index").text(uvIndex);
+          if(uvIndex<3){
+            $("#uv-index").attr("style", "background-color:green")
+          } else if(uvIndex<7){
+            $("#uv-index").attr("style", "background-color:orange")
+          } else{
+            $("#uv-index").attr("style", "background-color:red")
+          }
+       
+        });
       
     });
   }
@@ -81,7 +104,6 @@ $(document).ready(function () {
         let tempCard = Math.floor(
           (response.list[i].main.temp - 273.15) * 1.8 + 32
         );
-        console.log(tempCard);
         var timeCard = new Date(response.list[i].dt_txt).toLocaleDateString();
         var humCard = response.list[i].main.humidity;
     var icon = response.list[i].weather[0].icon;
@@ -103,32 +125,10 @@ $(document).ready(function () {
     }
   }
 
-  // function uvIndex(response){
-  //   var lon = response.city.coord.lon;
-  //   var lat = response.city.coord.lat;
-  //   var uvIndexAPI = `http://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
-  //   $.ajax({
-  //     url: uvIndexAPI,
-  //     method: "GET",
-  //   }).then(function (uv) {
-  //     console.log(uv);
-  //     cachedData[city] = uv;
-  //     saveDataInCache(cachedData);
-  //     cities.push(uv);
-  //     var uvIndex = uv.list[1].wind.speed;
-  //     $("#uv-index").text(uvIndex);
-  //     renderButtons();
-  //     renderWeatherInfo(response);
-  //   });
-  
-  
-  // }
 
   function renderWeatherInfo(response) {
-    // console.log(icon)
 
     var timeBlock = moment().format("L");
-    console.log(timeBlock);
     var cityName = response.city.name;
     $("#city").text(`${cityName} (${timeBlock}) `);
     var temp = Math.floor((response.list[0].main.temp - 273.15) * 1.8 + 32);
@@ -143,14 +143,6 @@ $(document).ready(function () {
     var wind = response.list[0].wind.speed;
     $("#wind-speed").text(wind + " MPH");
 
-    // $(".card-title").text(timeBlock);
-    // var tempCard = Math.floor((response.list[0].main.temp - 273.15) * 1.8 + 32);
-    // $(".card-temp").text(tempCard + " F");
-    // var humCard = response.list[1].main.humidity;
-    // $(".card-hum").text(humCard + " %");
-    //needs to be fixed
-    var uvIndex = response.list[1].wind.speed;
-    $("#uv-index").text(uvIndex);
     renderCards(response);
   }
 
