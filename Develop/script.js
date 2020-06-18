@@ -114,7 +114,7 @@ $(document).ready(function () {
     <div class="card-body forecast-cards">
       <h5 class="card-title">${timeCard}</h5>
       <p>Temp: <span class="card-temp">${tempCard} F\xB0</span></p>
-      <div id="icon-card"><img id="wicon" src="http://openweathermap.org/img/w/${icon}.png" alt="Weather icon" /></div>
+      <div id="icon-card"><img id="wicon" src="https://openweathermap.org/img/w/${icon}.png" alt="Weather icon" /></div>
 
                     <p>Hum: <span class="card-hum">${humCard} %</span></p>
     </div>
@@ -135,7 +135,7 @@ $(document).ready(function () {
     $("#icon").empty();
     var icon = response.list[0].weather[0].icon;
     $("#icon").append(
-      `<img id="wicon" src="http://openweathermap.org/img/w/${icon}.png" alt="Weather icon" />`
+      `<img id="wicon" src="https://openweathermap.org/img/w/${icon}.png" alt="Weather icon" />`
     );
     $("#temperature").text(temp + " F\xB0");
     var hum = response.list[0].main.humidity;
