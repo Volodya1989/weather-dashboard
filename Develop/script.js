@@ -7,14 +7,17 @@ $(document).ready(function () {
   //variable for listener and array for cities user inputs
   var searchBth = $("#search-button");
   var cities = [];
-  // function responsible for getting info to local storage assigned to variable
+  // function responsible for getting info from local storage assigned to variable
   var cachedData = getCachedData();
+
   //taking keys from local storage and assign to variable
   var cachedCityNames = Object.keys(cachedData);
   //iterating through info in local storage to get it back
   for (var i = 0; i < cachedCityNames.length; i++) {
     var cityName = cachedCityNames[i];
+
     var cityData = cachedData[cityName];
+    console.log(cityName)
     cities.push(cityData);
   }
   //if local storage is not empty, then prepending info that we are getting back from local storage
@@ -50,43 +53,24 @@ $(document).ready(function () {
     var cityExists = cachedData[city];
     if (cityExists) {
       renderWeatherInfo(cachedData[city]);
-     return;
+      return;
     }
     var queryURL = `${dailyApi}&q=${city}`;
     console.log(queryURL);
-  // function for ajax call
+    // function for ajax call
     $.ajax({
       url: queryURL,
       method: "GET",
     }).then(function (response) {
       cachedData[city] = response;
+      console.log(cachedData[city]);
       saveDataInCache(cachedData);
       cities.push(response);
       renderButtons();
       renderWeatherInfo(response);
-      var lon = response.city.coord.lon;
-      var lat = response.city.coord.lat;
-      var uvIndexAPI = `https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
-      //second ajax call for uv index
-      $.ajax({
-        url: uvIndexAPI,
-        method: "GET",
-      }).then(function (uv) {
-        var uvIndex = uv.value;
-        $("#uv-index").text(uvIndex);
-        if (uvIndex < 3) {
-          $("#uv-index").attr("style", "background-color:green; padding: 5px;");
-        } else if (uvIndex < 7) {
-          $("#uv-index").attr(
-            "style",
-            "background-color:orange; padding: 5px;"
-          );
-        } else {
-          $("#uv-index").attr("style", "background-color:red; padding: 5px;");
-        }
-      });
     });
   }
+
   //function to dynamically  generate 5 days cards and display info received through API call
   function renderCards(response) {
     var cardDays = $(`.forecast-days`);
@@ -130,7 +114,29 @@ $(document).ready(function () {
     $("#humidity").text(hum + " %");
     var wind = response.list[0].wind.speed;
     $("#wind-speed").text(wind + " MPH");
+    secondAjaxCall(response);
     renderCards(response);
+  }
+  function secondAjaxCall(response) {
+    var lon = response.city.coord.lon;
+    var lat = response.city.coord.lat;
+    var uvIndexAPI = `https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
+    //second ajax call for uv index
+    $.ajax({
+      url: uvIndexAPI,
+      method: "GET",
+    }).then(function (uv) {
+      var uvIndex = uv.value;
+
+      $("#uv-index").text(uvIndex);
+      if (uvIndex < 3) {
+        $("#uv-index").attr("style", "background-color:green; padding: 5px;");
+      } else if (uvIndex < 7) {
+        $("#uv-index").attr("style", "background-color:orange; padding: 5px;");
+      } else {
+        $("#uv-index").attr("style", "background-color:red; padding: 5px;");
+      }
+    });
   }
   //read users input
   function displayCityInfo() {
@@ -149,7 +155,7 @@ $(document).ready(function () {
     });
     renderWeatherInfo(cityData);
   }
-  
+
   function renderButtons() {
     // Deletes the cities prior to adding new cities
     $("#cities-list").empty();
