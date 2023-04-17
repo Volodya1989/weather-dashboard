@@ -36,7 +36,7 @@ This was a solo project comlepeted by Volodymyr Petrytsya as homework for the Ge
 
 ## URL
 
-[Link to Deployed Weather Dashboard Application  ]( https://volodya1989.github.io/gt-hw-weather-dashboard/)
+[Link to Deployed Weather Dashboard Application  ](https://volodya1989.github.io/weather-dashboard/)
 
 
 ## MIT_License 
